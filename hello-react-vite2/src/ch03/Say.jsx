@@ -11,6 +11,8 @@ const Say = () => {
   const onClickEnter = () => setMessage('안녕하세요, enter 이벤트 동작. ');
   const onClickLeave = () => setMessage('안녕하세요, leave 이벤트 동작. ');
   const onColorChangeRed = () => setColor('red');
+  const onColorChangeGreen = () => setColor('green');
+  const onColorChangeBlack = () => setColor('black');
 
   return (
     <div>
@@ -19,6 +21,12 @@ const Say = () => {
       <h1 style={{ color }}>{message}</h1>
       <button style={{ color: 'red' }} onClick={onColorChangeRed}>
         빨간색
+      </button>
+      <button style={{ color: 'green' }} onClick={onColorChangeGreen}>
+        초록색
+      </button>
+      <button style={{ color: 'black' }} onClick={onColorChangeBlack}>
+        검정색
       </button>
       {/* 초록색, 파란색, 검정색(돌아가기) */}
     </div>
