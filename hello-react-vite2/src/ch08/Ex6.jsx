@@ -22,6 +22,15 @@ function reducer(state, action) {
   switch (action.type) {
     case 'CHANGE_INPUT':
       return { ...state, inputText: action.payload };
+
+    case 'ADD_ITEM':
+      return {
+        ...state,
+        // 기존 배열을 복제해서, 새 요소 추가.
+        names: state.names.concat({ id: state.nextId, text: state.inputText }),
+        nextId: state.nextId + 1, // 추가하면 id + 1
+        inputText: '',
+      };
   }
 }
 
@@ -35,6 +44,21 @@ const Ex6 = () => {
   //5. 이벤트 핸들러들이 올 예정.
   const onChange = (e) => {
     dispatch({ type: 'CHANGE_INPUT', payload: e.target.value });
+  };
+
+  const onClick = () => {
+    if (!inputText.trim()) {
+      alert('공백은 입력 할수 없습니다.');
+      return;
+    }
+
+    if (names.some((name) => name.text === inputText)) {
+      alert('이미 존재하는 항목입니다.');
+      dispatch({ type: 'CHANGE_INPUT', payload: '' });
+      return;
+    }
+
+    dispatch({ type: 'ADD_ITEM' });
   };
   // 추가 이벤트 핸들러 더 있음. 추가 할 예정.
 
@@ -57,7 +81,7 @@ const Ex6 = () => {
         onChange={onChange}
         placeholder="항목을 입력하세요"
       />
-      {/* <button onClick={onClick}>추가</button> */}
+      <button onClick={onClick}>추가</button>
 
       {/* 오름차순, 내림차순 정렬 기능
     순서3 */}
