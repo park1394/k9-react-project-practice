@@ -31,6 +31,15 @@ function reducer(state, action) {
         nextId: state.nextId + 1, // 추가하면 id + 1
         inputText: '',
       };
+
+    case 'REMOVE_ITEM':
+      return {
+        ...state,
+        // 삭제 할 대상을 제외한 새로운 배열을 만들고 교체 작업.
+        names: state.names.filter((name) => name.id !== action.payload.id),
+        // 복구를 할 예정, 삭제한 요소를, 보관하는 배열에 추가.
+        deletedItems: [...state.deletedItems, action.payload],
+      };
   }
 }
 
@@ -60,13 +69,23 @@ const Ex6 = () => {
 
     dispatch({ type: 'ADD_ITEM' });
   };
+
+  // 삭제 작업 : D
+  const onRemove = (id) => {
+    const removedItem = names.find((name) => name.id === id);
+    if (confirm(`${removedItem.text}를 삭제하시겠습니까?`)) {
+      dispatch({ type: 'REMOVE_ITEM', payload: removedItem });
+      alert(`삭제한 요소는 :  ${id}`);
+    }
+  };
+
   // 추가 이벤트 핸들러 더 있음. 추가 할 예정.
 
   //6. 출력용 배열 , names 를 그리기 작업 : 6장 컴포넌트 반복, 내장 함수, map 이용했음.
   const namesList = names.map((name) => (
     <li
       key={name.id}
-      //   onDoubleClick={() => onRemove(name.id)}
+      onDoubleClick={() => onRemove(name.id)}
       //   // 수정 순서3
       //   onContextMenu={() => rightClick(name.id, name.text)}
     >
