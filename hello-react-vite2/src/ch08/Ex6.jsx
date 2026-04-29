@@ -61,6 +61,18 @@ function reducer(state, action) {
           (name) => name.id !== action.payload.id,
         ),
       };
+
+    case 'SORT_ASC':
+      return {
+        ...state,
+        names: [...state.names].sort((a, b) => a.text.localeCompare(b.text)),
+      };
+
+    case 'SORT_DESC':
+      return {
+        ...state,
+        names: [...state.names].sort((a, b) => b.text.localeCompare(a.text)),
+      };
   }
 }
 
@@ -141,8 +153,12 @@ const Ex6 = () => {
 
       {/* 오름차순, 내림차순 정렬 기능
     순서3 */}
-      {/* <button onClick={sortAsscending}>오름차순 정렬</button>
-      <button onClick={sortDescending}>내림차순 정렬</button> */}
+      <button onClick={() => dispatch({ type: 'SORT_ASC' })}>
+        오름차순 정렬
+      </button>
+      <button onClick={() => dispatch({ type: 'SORT_DESC' })}>
+        내림차순 정렬
+      </button>
       <ul>{namesList}</ul>
       {/* // 복구 기능 구현
         // 순서3 */}
