@@ -1,5 +1,6 @@
 // App.jsx
 import './App.css';
+import CSSModule from './CSSModule';
 import Ex1 from './Ex1';
 import Ex2 from './Ex2';
 import Ex3 from './Ex3';
@@ -70,6 +71,15 @@ const App = () => (
     <h2>CSSModule.css 예제</h2>
     <p>CSSModule 를 이용한 자동 클래스명 생성 예시</p>
     <ModuleCss></ModuleCss>
+
+    <h2>classnames 예제</h2>
+    <p>
+      classnames 이용해서, 클래스명의 문자열 연결, 객체의 true/false 에 따라서,
+      조건부 클래스명 적용
+    </p>
+    <CSSModule></CSSModule>
+    <h3>inverted 속성 추가 모드 </h3>
+    <CSSModule inverted={true}></CSSModule>
   </div>
 );
 
